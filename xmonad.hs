@@ -15,6 +15,8 @@ import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 import Data.List
 import XMonad.Actions.PhysicalScreens
+import XMonad.Prompt
+import XMonad.Prompt.Window
 
 -- import XMonad.Prompt
 -- import XMonad.Prompt.Shell
@@ -64,6 +66,20 @@ myLayout = avoidStruts (
               
 ------------------------------------------------------------------------
 
+
+myXPConfig :: XPConfig
+myXPConfig = defaultXPConfig
+    { font = "-*-terminus-bold-*-*-*-12-*-*-*-*-*-*-"
+    , borderColor       = "#000000"
+    , bgColor           = "#000000"
+    , fgColor           = "#30dd40"
+    , fgHLight          = "#000000"
+    , bgHLight          = "#bbbbbb"
+    , promptBorderWidth = 2
+    , height            = 28
+    , historySize       = 4096
+    }
+
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Start a terminal.  Terminal to start is specified by myTerminal variable.
   [ ((modMask .|. shiftMask, xK_Return),
@@ -71,6 +87,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
   , ((modMask,               xK_p     ), spawn "dmenu_run -i -l 20")
 
+
+  , ((modMask .|. shiftMask, xK_g     ), windowPromptGoto  myXPConfig)
+  , ((modMask .|. shiftMask, xK_b     ), windowPromptBring myXPConfig)
+    
   -- Launch KeepassC
   , ((modMask .|. controlMask .|. shiftMask, xK_p),
      spawn "gnome-terminal -x sh -c keepassc")
@@ -161,7 +181,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- mod-[1..9], Switch to workspace N
   -- mod-shift-[1..9], Move client to workspace N
   [((m .|. modMask, k), windows $ f i)
-      | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
+      | (i, k) <- zip (XMonad.workspaces conf)  ( [xK_1 .. xK_9] ++ [xK_0] ++ [xK_minus] ++ [xK_equal] ++ [xK_F1 .. xK_F12])
       , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
   ++
 
@@ -230,7 +250,8 @@ defaults = ewmh defaultConfig {
     focusFollowsMouse  = True,
     borderWidth        = 2,
     modMask = findModMask,
-    workspaces         = ["web","emacs"] ++ map show [3..9],
+    workspaces         = ["web","emacs"] ++ map show [3..9] ++
+    ["0","-", "=","F1", "F2", "F3" , "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12"],
     normalBorderColor  = "#000000",
     focusedBorderColor =  "#Ff8c00",
 
