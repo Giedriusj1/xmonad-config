@@ -252,8 +252,8 @@ defaults = ewmh defaultConfig {
     modMask = findModMask,
     workspaces         = ["web","emacs"] ++ map show [3..9] ++
     ["0","-", "=","F1", "F2", "F3" , "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12"],
-    normalBorderColor  = "#000000",
-    focusedBorderColor =  "#Ff8c00",
+    normalBorderColor  = "#696969",
+    focusedBorderColor =  "#9400d3",
 
     -- key bindings
     keys               = myKeys,
