@@ -8,10 +8,8 @@ import XMonad.Util.CustomKeys
 -- Notes:
 -- /usr/include/X11/keysymdef.h has keydefs
 
-main = xmonad $ ewmh xfceConfig {
-  layoutHook =
-      -- Has to be wrapped in avoidStruts to work nicely with xfce panel
-      avoidStruts(smartBorders (Tall 1 (3/100) (1/2)) ||| noBorders Full),
+main = xmonad $ ewmhFullscreen xfceConfig {
+  layoutHook = smartBorders (Tall 1 (3/100) (1/2)) ||| noBorders Full,
 
     borderWidth        = 2,
     normalBorderColor  = "#696969",
