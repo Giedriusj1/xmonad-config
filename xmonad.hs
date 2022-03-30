@@ -1,8 +1,3 @@
-{-# OPTIONS_GHC -Wno-deprecations #-}
-
--- Notes:
--- /usr/include/X11/keysymdef.h has keydefs
-
 import XMonad
 import XMonad.Config.Xfce
 import XMonad.Hooks.EwmhDesktops
@@ -10,12 +5,14 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Layout.NoBorders
 import XMonad.Util.CustomKeys
 
-main = xmonad xfceConfig {
+-- Notes:
+-- /usr/include/X11/keysymdef.h has keydefs
+
+main = xmonad $ ewmh xfceConfig {
   layoutHook =
       -- Has to be wrapped in avoidStruts to work nicely with xfce panel
       avoidStruts(smartBorders (Tall 1 (3/100) (1/2)) ||| noBorders Full),
 
-    startupHook        = ewmhDesktopsStartup,
     borderWidth        = 2,
     normalBorderColor  = "#696969",
     focusedBorderColor = "#9400d3",
