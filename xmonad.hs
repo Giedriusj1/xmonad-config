@@ -10,11 +10,10 @@ import XMonad.Util.CustomKeys
 
 main = xmonad $ ewmhFullscreen xfceConfig {
   layoutHook = smartBorders (Tall 1 (3/100) (1/2)) ||| noBorders Full,
-
-    borderWidth        = 2,
-    normalBorderColor  = "#696969",
-    focusedBorderColor = "#9400d3",
-    keys = customKeys delkeys inskeys }
+  borderWidth        = 2,
+  normalBorderColor  = "#000000",
+  focusedBorderColor = "#9400d3",
+  keys = customKeys delkeys inskeys }
 
   where
       delkeys :: XConfig l -> [(KeyMask, KeySym)]
