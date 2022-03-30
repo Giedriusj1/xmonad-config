@@ -26,7 +26,7 @@ main = xmonad $ ewmh xfceConfig {
 
       inskeys :: XConfig l -> [((KeyMask, KeySym), X ())]
       inskeys conf@(XConfig {modMask = modm}) =
-          [
-            ((mod1Mask,             xK_q  ), spawn "xmonad --restart && xfce4-panel --restart")
-          , ((mod1Mask,             xK_F4 ), kill) -- %! Close the focused window
+          [ ((mod1Mask,               xK_q  ), spawn "xmonad --restart && xfce4-panel --restart")
+          , ((mod1Mask .|. shiftMask, xK_e  ), spawn "emacsclient --create-frame")
+          , ((mod1Mask,               xK_F4 ), kill) -- %! Close the focused window
           ]
