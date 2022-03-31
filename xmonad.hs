@@ -1,7 +1,6 @@
 import XMonad
 import XMonad.Config.Xfce
 import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.ManageDocks
 import XMonad.Layout.NoBorders
 import XMonad.Util.CustomKeys
 
@@ -25,5 +24,13 @@ main = xmonad $ ewmhFullscreen xfceConfig {
       inskeys conf@(XConfig {modMask = modm}) =
           [ ((mod1Mask,               xK_q  ), spawn "xmonad --restart && xfce4-panel --restart")
           , ((mod1Mask .|. shiftMask, xK_e  ), spawn "emacsclient --create-frame")
-          , ((mod1Mask,               xK_F4 ), kill) -- %! Close the focused window
+
+            -- Close the focused window
+          , ((mod1Mask,               xK_F4 ), kill)
+
+            -- Increment the number of windows in the master area
+          , ((mod1Mask              , xK_equal ), sendMessage (IncMasterN 1))
+
+            -- Deincrement the number of windows in the master area
+          , ((mod1Mask              , xK_minus), sendMessage (IncMasterN (-1)))
           ]
