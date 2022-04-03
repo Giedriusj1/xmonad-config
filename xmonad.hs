@@ -1,6 +1,7 @@
 import XMonad
 import XMonad.Config.Xfce
 import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.ManageDocks
 import XMonad.Layout.NoBorders
 import XMonad.Util.CustomKeys
 
@@ -8,7 +9,7 @@ import XMonad.Util.CustomKeys
 -- /usr/include/X11/keysymdef.h has keydefs
 
 main = xmonad $ ewmhFullscreen xfceConfig {
-  layoutHook = smartBorders (Tall 1 (3/100) (1/2)) ||| noBorders Full,
+  layoutHook = avoidStruts (smartBorders (Tall 1 (3/100) (1/2)) ||| noBorders Full),
   borderWidth        = 2,
   normalBorderColor  = "#000000",
   focusedBorderColor = "#9400d3",
@@ -22,7 +23,7 @@ main = xmonad $ ewmhFullscreen xfceConfig {
 
       inskeys :: XConfig l -> [((KeyMask, KeySym), X ())]
       inskeys conf@(XConfig {modMask = modm}) =
-          [ ((mod1Mask,               xK_q  ), spawn "xmonad --restart && xfce4-panel --restart")
+          [ ((mod1Mask,               xK_q  ), spawn "xmonad --restart")
           , ((mod1Mask .|. shiftMask, xK_e  ), spawn "emacsclient --create-frame")
 
             -- Close the focused window
@@ -33,4 +34,8 @@ main = xmonad $ ewmhFullscreen xfceConfig {
 
             -- Deincrement the number of windows in the master area
           , ((mod1Mask              , xK_minus), sendMessage (IncMasterN (-1)))
+
+
+          ,((mod1Mask, xK_F10     ), spawn "xfce4-panel --quit")
+          ,((mod1Mask, xK_F11     ), spawn "xfce4-panel &")
           ]
