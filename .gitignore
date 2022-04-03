@@ -1,0 +1,9 @@
+.stack-work
+
+build-*
+
+xmonad-*-linux
+
+xmonad.hi
+xmonad.errors
+xmonad.o
